@@ -1,0 +1,12 @@
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="BeverlyHills">
+            <directory>.</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory>test/</directory>
+        </whitelist>
+    </filter>
+</phpunit>

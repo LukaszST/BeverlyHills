@@ -1,0 +1,32 @@
+{
+  "name":        "mbillewicz/beverlyHills",
+  "description": "Beverly Hills Refactor",
+  "keywords":    ["refeactor"],
+  "type":        "library",
+  "license":     "MIT",
+  "homepage":    "https://github.com/mbillewicz",
+  "authors": [
+    {
+      "name":     "Maciej Billewicz",
+      "email":    "maciej.billewicz@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "BeverlyHills\\": "src/",
+      "Test\\BeverlyHills\\": "test/"
+    }
+  },
+  "config": {
+    "bin-dir":"bin"
+  },
+  "require": {
+    "php": "^7.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5"
+  },
+  "scripts" : {
+    "test" : "phpunit -c test/phpunit.xml"
+  }
+}
