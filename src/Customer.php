@@ -33,23 +33,7 @@ class Customer
         foreach ($this->rentals as $each) {
             $thisAmount = 0;
 
-            switch ($each->getMovie()->getPriceCode()) {
-                case Movie::REGULAR:
-                    $thisAmount += 2;
-                    if ($each->getDaysRented() > 2) {
-                        $thisAmount += ($each->getDaysRented() - 2) * 1.5;
-                    }
-                    break;
-                case Movie::NEW_RELEASE:
-                    $thisAmount += $each->getDaysRented() * 3;
-                    break;
-                case Movie::CHILDRENS:
-                    $thisAmount += 1.5;
-                    if ($each->getDaysRented() > 3) {
-                        $thisAmount += ($each->getDaysRented() - 3) * 1.5;
-                    }
-                    break;
-            }
+            $thisAmount = $this->amountFor($each);
 
             $frequentRenterPoints++;
             if (($each->getMovie()->getPriceCode() == Movie::NEW_RELEASE)
@@ -64,5 +48,29 @@ class Customer
         $result .= "You earned " . $frequentRenterPoints . " frequent renter points";
 
         return $result;
+    }
+
+    public function amountFor(Rental $each): float
+    {
+        $thisAmount = 0;
+
+        switch ($each->getMovie()->getPriceCode()) {
+            case Movie::REGULAR:
+                $thisAmount += 2;
+                if ($each->getDaysRented() > 2) {
+                    $thisAmount += ($each->getDaysRented() - 2) * 1.5;
+                }
+                break;
+            case Movie::NEW_RELEASE:
+                $thisAmount += $each->getDaysRented() * 3;
+                break;
+            case Movie::CHILDRENS:
+                $thisAmount += 1.5;
+                if ($each->getDaysRented() > 3) {
+                    $thisAmount += ($each->getDaysRented() - 3) * 1.5;
+                }
+                break;
+        }
+        return $thisAmount;
     }
 }
