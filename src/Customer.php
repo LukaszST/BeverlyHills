@@ -31,12 +31,7 @@ class Customer
 
         /** @var Rental $rental */
         foreach ($this->rentals as $rental) {
-            $frequentRenterPoints++;
-            if (($rental->getMovie()->getPriceCode() == Movie::NEW_RELEASE)
-                && $rental->getDaysRented() > 1
-            ) {
-                $frequentRenterPoints ++;
-            }
+            $frequentRenterPoints += $this->calculateFrequentRenterPoints($rental);
             $result .= $rental->getMovie()->getTitle() . "\t" . $rental->getCharge() . "\n";
             $totalAmount += $rental->getCharge();
         }
@@ -44,5 +39,16 @@ class Customer
         $result .= "You earned " . $frequentRenterPoints . " frequent renter points";
 
         return $result;
+    }
+
+    public function calculateFrequentRenterPoints(Rental $rental): int
+    {
+        if (($rental->getMovie()->getPriceCode() == Movie::NEW_RELEASE)
+            && $rental->getDaysRented() > 1
+        ) {
+            return 2;
+        }
+
+        return 1;
     }
 }
