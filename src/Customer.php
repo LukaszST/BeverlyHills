@@ -31,17 +31,14 @@ class Customer
 
         /** @var Rental $rental */
         foreach ($this->rentals as $rental) {
-            $thisAmount = 0;
-
-            $thisAmount = $rental->getCharge();
             $frequentRenterPoints++;
             if (($rental->getMovie()->getPriceCode() == Movie::NEW_RELEASE)
                 && $rental->getDaysRented() > 1
             ) {
                 $frequentRenterPoints ++;
             }
-            $result .= $rental->getMovie()->getTitle() . "\t" . $thisAmount . "\n";
-            $totalAmount += $thisAmount;
+            $result .= $rental->getMovie()->getTitle() . "\t" . $rental->getCharge() . "\n";
+            $totalAmount += $rental->getCharge();
         }
         $result .= "Amount owned is " . $totalAmount . "\n";
         $result .= "You earned " . $frequentRenterPoints . " frequent renter points";
